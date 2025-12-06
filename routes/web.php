@@ -33,6 +33,16 @@ Route::get('/dashboard', function () {
 ->middleware(['auth', 'verified'])
 ->name('dashboard');
 
+// routes/web.php
+Route::get('/admin/realtime-votes', function() {
+    return response()->json([
+        'voteCounts' => \App\Models\Candidate::withCount('votes')->pluck('votes_count'),
+        'labels' => \App\Models\Candidate::pluck('name'),
+    ]);
+});
+
+
+
 
 /*
 |--------------------------------------------------------------------------
