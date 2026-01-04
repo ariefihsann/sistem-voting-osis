@@ -42,6 +42,8 @@
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
+
+
     <!-- Dashboard Container -->
     <div class="flex h-screen">
         <!-- Sidebar -->
@@ -59,34 +61,7 @@
                     <i class="fas fa-chart-bar mr-3"></i>
                     <span class="font-medium">Dashboard</span>
                 </a>
-                <a href="#" class="sidebar-item flex items-center px-6 py-3 text-gray-700 hover:text-blue-600">
-                    <i class="fas fa-users mr-3"></i>
-                    <span>Kandidat</span>
-                </a>
-                <a href="#" class="sidebar-item flex items-center px-6 py-3 text-gray-700 hover:text-blue-600">
-                    <i class="fas fa-user-graduate mr-3"></i>
-                    <span>Pemilih</span>
-                </a>
-                <a href="#" class="sidebar-item flex items-center px-6 py-3 text-gray-700 hover:text-blue-600">
-                    <i class="fas fa-cog mr-3"></i>
-                    <span>Pengaturan</span>
-                </a>
-                <a href="#" class="sidebar-item flex items-center px-6 py-3 text-gray-700 hover:text-blue-600">
-                    <i class="fas fa-file-export mr-3"></i>
-                    <span>Laporan</span>
-                </a>
             </nav>
-            
-            <div class="p-6 mt-12">
-                <div class="bg-blue-50 p-4 rounded-lg">
-                    <p class="text-sm text-gray-700">Total Suara Masuk</p>
-                    <p class="text-2xl font-bold text-blue-600">1,247</p>
-                    <p class="text-xs text-gray-500 mt-1">dari 1,500 siswa</p>
-                    <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
-                        <div class="bg-green-500 h-2 rounded-full progress-bar" style="width: 83%"></div>
-                    </div>
-                </div>
-            </div>
         </aside>
 
         <!-- Main Content -->
@@ -97,15 +72,14 @@
                     <h2 class="text-2xl font-bold text-gray-800">Dashboard Hasil Voting OSIS</h2>
                     <p class="text-gray-600">Pantau hasil pemilihan secara real-time</p>
                 </div>
-                <div class="mt-4 md:mt-0">
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                        <i class="fas fa-circle text-green-500 mr-1" style="font-size: 8px;"></i>
-                        Live Voting
-                    </span>
-                    <button class="ml-3 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                        <i class="fas fa-download mr-2"></i>Export Data
-                    </button>
-                </div>
+
+                
+<form method="POST" action="{{ route('logout') }}">
+    @csrf
+    <button type="submit" class="logout-btn">
+        <i class="fas fa-sign-out-alt"></i> Logout
+    </button>
+</form>
             </div>
 
             <!-- Stats Cards -->
@@ -114,14 +88,14 @@
                     <div class="flex justify-between items-start">
                         <div>
                             <p class="text-gray-500 text-sm">Total Suara</p>
-                            <p class="text-3xl font-bold mt-2">1,247</p>
+                            <p class="text-3xl font-bold mt-2" id="totalVotes">
+    {{ number_format($totalVotes) }}
+</p>
+
                         </div>
                         <div class="p-3 bg-blue-100 rounded-lg">
                             <i class="fas fa-vote-yea text-blue-600 text-xl"></i>
                         </div>
-                    </div>
-                    <div class="mt-4 text-sm text-green-600">
-                        <i class="fas fa-arrow-up mr-1"></i> 12.5% dari kemarin
                     </div>
                 </div>
 
@@ -129,7 +103,7 @@
                     <div class="flex justify-between items-start">
                         <div>
                             <p class="text-gray-500 text-sm">Kandidat</p>
-                            <p class="text-3xl font-bold mt-2">4</p>
+                            <p class="text-3xl font-bold mt-2">8</p>
                         </div>
                         <div class="p-3 bg-purple-100 rounded-lg">
                             <i class="fas fa-user-tie text-purple-600 text-xl"></i>
@@ -140,35 +114,6 @@
                     </div>
                 </div>
 
-                <div class="bg-white p-6 rounded-xl shadow card-hover fade-in" style="animation-delay: 0.2s">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <p class="text-gray-500 text-sm">Partisipasi</p>
-                            <p class="text-3xl font-bold mt-2">83.1%</p>
-                        </div>
-                        <div class="p-3 bg-green-100 rounded-lg">
-                            <i class="fas fa-chart-line text-green-600 text-xl"></i>
-                        </div>
-                    </div>
-                    <div class="mt-4 text-sm text-green-600">
-                        <i class="fas fa-arrow-up mr-1"></i> 5.2% dari periode lalu
-                    </div>
-                </div>
-
-                <div class="bg-white p-6 rounded-xl shadow card-hover fade-in" style="animation-delay: 0.3s">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <p class="text-gray-500 text-sm">Sisa Waktu</p>
-                            <p class="text-3xl font-bold mt-2">2 Hari</p>
-                        </div>
-                        <div class="p-3 bg-orange-100 rounded-lg">
-                            <i class="fas fa-clock text-orange-600 text-xl"></i>
-                        </div>
-                    </div>
-                    <div class="mt-4 text-sm text-gray-500">
-                        Voting berakhir: 15 Des 2024
-                    </div>
-                </div>
             </div>
 
             <!-- Charts Section -->
@@ -210,200 +155,174 @@
     </div>
 </div>
 
-</div>
+
 </div>
 
-            </div>
+ <div class="bg-white rounded-xl shadow overflow-hidden mb-8">
+    <div class="px-6 py-4 border-b">
+        <h3 class="text-lg font-bold text-gray-800">
+            Detail Hasil Kandidat Laki-laki
+        </h3>
+    </div>
 
-            <!-- Detail Kandidat -->
-            <div class="bg-white rounded-xl shadow overflow-hidden">
-                <div class="px-6 py-4 border-b">
-                    <h3 class="text-lg font-bold text-gray-800">Detail Hasil per Kandidat</h3>
-                </div>
-                
-                <div class="overflow-x-auto">
-                    <table class="w-full">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kandidat</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kelas</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jumlah Suara</th>
-                                <th class="px6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Persentase</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            <!-- Kandidat 1 -->
-                            <tr class="hover:bg-gray-50 transition">
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="h-10 w-10 flex-shrink-0 bg-blue-100 rounded-full flex items-center justify-center">
-                                            <span class="text-blue-800 font-bold">A</span>
-                                        </div>
-                                        <div class="ml-4">
-                                            <div class="font-medium text-gray-900">Ahmad Rizki</div>
-                                            <div class="text-sm text-gray-500">Ketua OSIS</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-800">XI IPA 2</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-lg font-bold">412</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="w-24 bg-gray-200 rounded-full h-2 mr-3">
-                                            <div class="bg-blue-600 h-2 rounded-full" style="width: 33%"></div>
-                                        </div>
-                                        <span class="font-medium">33%</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-800 font-medium">
-                                        <i class="fas fa-crown mr-1"></i> Posisi 1
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <button class="text-blue-600 hover:text-blue-900">
-                                        <i class="fas fa-eye"></i> Detail
-                                    </button>
-                                </td>
-                            </tr>
-                            
-                            <!-- Kandidat 2 -->
-                            <tr class="hover:bg-gray-50 transition">
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="h-10 w-10 flex-shrink-0 bg-green-100 rounded-full flex items-center justify-center">
-                                            <span class="text-green-800 font-bold">S</span>
-                                        </div>
-                                        <div class="ml-4">
-                                            <div class="font-medium text-gray-900">Sari Dewi</div>
-                                            <div class="text-sm text-gray-500">Wakil Ketua</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-800">XI IPS 1</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-lg font-bold">389</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="w-24 bg-gray-200 rounded-full h-2 mr-3">
-                                            <div class="bg-green-600 h-2 rounded-full" style="width: 31%"></div>
-                                        </div>
-                                        <span class="font-medium">31%</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-800 font-medium">
-                                        Posisi 2
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <button class="text-blue-600 hover:text-blue-900">
-                                        <i class="fas fa-eye"></i> Detail
-                                    </button>
-                                </td>
-                            </tr>
-                            
-                            <!-- Kandidat 3 -->
-                            <tr class="hover:bg-gray-50 transition">
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="h-10 w-10 flex-shrink-0 bg-purple-100 rounded-full flex items-center justify-center">
-                                            <span class="text-purple-800 font-bold">B</span>
-                                        </div>
-                                        <div class="ml-4">
-                                            <div class="font-medium text-gray-900">Budi Santoso</div>
-                                            <div class="text-sm text-gray-500">Sekretaris</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-3 py-1 text-xs rounded-full bg-purple-100 text-purple-800">X IPA 3</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-lg font-bold">278</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="w-24 bg-gray-200 rounded-full h-2 mr-3">
-                                            <div class="bg-purple-600 h-2 rounded-full" style="width: 22%"></div>
-                                        </div>
-                                        <span class="font-medium">22%</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-3 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800 font-medium">
-                                        Posisi 3
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <button class="text-blue-600 hover:text-blue-900">
-                                        <i class="fas fa-eye"></i> Detail
-                                    </button>
-                                </td>
-                            </tr>
-                            
-                            <!-- Kandidat 4 -->
-                            <tr class="hover:bg-gray-50 transition">
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="h-10 w-10 flex-shrink-0 bg-orange-100 rounded-full flex items-center justify-center">
-                                            <span class="text-orange-800 font-bold">M</span>
-                                        </div>
-                                        <div class="ml-4">
-                                            <div class="font-medium text-gray-900">Maya Indah</div>
-                                            <div class="text-sm text-gray-500">Bendahara</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-3 py-1 text-xs rounded-full bg-orange-100 text-orange-800">XII IPA 1</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-lg font-bold">168</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="w-24 bg-gray-200 rounded-full h-2 mr-3">
-                                            <div class="bg-orange-600 h-2 rounded-full" style="width: 14%"></div>
-                                        </div>
-                                        <span class="font-medium">14%</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-3 py-1 text-xs rounded-full bg-gray-100 text-gray-800 font-medium">
-                                        Posisi 4
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <button class="text-blue-600 hover:text-blue-900">
-                                        <i class="fas fa-eye"></i> Detail
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+    <div class="overflow-x-auto">
+        <table class="w-full">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Kandidat</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Kelas</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Jumlah Suara</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Persentase</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                </tr>
+            </thead>
+
+            <tbody class="divide-y divide-gray-200">
+                @foreach ($candidates->where('gender', 'L')->values() as $index => $c)
+                <tr class="hover:bg-gray-50 transition">
+
+                    <!-- Kandidat -->
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="text-blue-800 font-bold">
+                                    {{ strtoupper(substr($c->name, 0, 1)) }}
+                                </span>
+                            </div>
+                            <div class="ml-4">
+                                <div class="font-medium text-gray-900">{{ $c->name }}</div>
+                                <div class="text-sm text-gray-500">Kandidat OSIS</div>
+                            </div>
+                        </div>
+                    </td>
+
+                    <!-- Kelas -->
+                    <td class="px-6 py-4">
+                        <span class="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-800">
+                            {{ $c->class ?? '-' }}
+                        </span>
+                    </td>
+
+                    <!-- Suara -->
+                    <td class="px-6 py-4 font-bold text-lg">
+                        {{ $c->votes_count }}
+                    </td>
+
+                    <!-- Persentase -->
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="w-24 bg-gray-200 rounded-full h-2 mr-3">
+                                <div class="h-2 bg-blue-600 rounded-full"
+                                     style="width: {{ $c->percentage }}%"></div>
+                            </div>
+                            <span>{{ $c->percentage }}%</span>
+                        </div>
+                    </td>
+
+                    <!-- Status -->
+                    <td class="px-6 py-4">
+                        <span class="px-3 py-1 text-xs rounded-full bg-gray-100 text-gray-800">
+                            Posisi {{ $index + 1 }}
+                        </span>
+                    </td>
+
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="bg-white rounded-xl shadow overflow-hidden">
+    <div class="px-6 py-4 border-b">
+        <h3 class="text-lg font-bold text-gray-800">
+            Detail Hasil Kandidat Perempuan
+        </h3>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="w-full">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Kandidat</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Kelas</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Jumlah Suara</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Persentase</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                </tr>
+            </thead>
+
+            <tbody class="divide-y divide-gray-200">
+                @foreach ($candidates->where('gender', 'P')->values() as $index => $c)
+                <tr class="hover:bg-gray-50 transition">
+
+                    <!-- Kandidat -->
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="h-10 w-10 bg-pink-100 rounded-full flex items-center justify-center">
+                                <span class="text-pink-800 font-bold">
+                                    {{ strtoupper(substr($c->name, 0, 1)) }}
+                                </span>
+                            </div>
+                            <div class="ml-4">
+                                <div class="font-medium text-gray-900">{{ $c->name }}</div>
+                                <div class="text-sm text-gray-500">Kandidat OSIS</div>
+                            </div>
+                        </div>
+                    </td>
+
+                    <!-- Kelas -->
+                    <td class="px-6 py-4">
+                        <span class="px-3 py-1 text-xs rounded-full bg-pink-100 text-pink-800">
+                            {{ $c->class ?? '-' }}
+                        </span>
+                    </td>
+
+                    <!-- Suara -->
+                    <td class="px-6 py-4 font-bold text-lg">
+                        {{ $c->votes_count }}
+                    </td>
+
+                    <!-- Persentase -->
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="w-24 bg-gray-200 rounded-full h-2 mr-3">
+                                <div class="h-2 bg-pink-500 rounded-full"
+                                     style="width: {{ $c->percentage }}%"></div>
+                            </div>
+                            <span>{{ $c->percentage }}%</span>
+                        </div>
+                    </td>
+
+                    <!-- Status -->
+                    <td class="px-6 py-4">
+                        <span class="px-3 py-1 text-xs rounded-full bg-gray-100 text-gray-800">
+                            Posisi {{ $index + 1 }}
+                        </span>
+                    </td>
+
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
                 
                 <div class="px-6 py-4 border-t text-sm text-gray-500">
                     <i class="fas fa-info-circle mr-2"></i> Data diperbarui setiap 5 menit secara otomatis
                 </div>
             </div>
+</div>
+
+            </div>
             
-            <!-- Footer -->
-            <div class="mt-8 text-center text-gray-500 text-sm">
+        </main>
+         <div class="mt-8 text-center text-gray-500 text-sm">
                 <p>Dashboard Admin Pemilihan OSIS © 2024 - SMA Negeri 1 Indonesia</p>
                 <p class="mt-1">Versi 1.2.0 | <i class="fas fa-sync-alt mr-1"></i> Terakhir diperbarui: 13 Des 2024, 14:30</p>
             </div>
-        </main>
     </div>
 
     <!-- untuk grafik -->
@@ -456,10 +375,14 @@
             datasets: [{
                 data: pieData,
                 backgroundColor: [
-                    '#2563eb',  // biru
-                    '#10b981',  // hijau
-                    '#f59e0b',  // orange
-                    '#ef4444',  // merah
+    '#2563eb', // biru
+    '#ef4444', // merah
+    '#22c55e', // hijau
+    '#f59e0b', // kuning
+    '#a855f7', // ungu
+    '#ec4899', // pink
+    '#14b8a6', // teal
+    '#6b7280'  // abu-abu // merah
                 ],
                 borderColor: '#fff',
                 borderWidth: 2,

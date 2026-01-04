@@ -92,64 +92,9 @@
 }
 
 /* ==== CARD ==== */
-.candidate-card {
-    background: white;
-    border-radius: 14px;
-    padding: 18px;
-    text-align: center;
-    position: relative;
-    box-shadow: 0 5px 17px rgba(0, 0, 0, 0.08);
-    transition: .25s ease;
-    border: 2px solid transparent;
-}
-
-.candidate-header {
-    text-align: left;
-}
 
 
-.candidate-number-modal {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    width: 26px;     /* ukuran lebih besar */
-    height: 26px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #4f46e5, #6366f1);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px; /* angka sedikit lebih besar */
-    font-weight: 700;
-    box-shadow: 0 3px 8px rgba(99,102,241,0.35);
-    z-index: 25;
-}
 
-.candidate-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 32px rgba(37,99,235,0.15);
-    border-color: #2563eb;
-}
-
-/* Number badge */
-.candidate-number {
-    position: absolute;
-    top: -6px;
-    left: 10px;
-    width: 20px;
-    height: 20px;
-    border-radius: 100%;
-    background: linear-gradient(135deg, #4f46e5, #6366f1);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 10px;
-    font-weight: 600;
-    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.3);
-    z-index: 10;
-}
 /* Image */
 .candidate-img {
     width: 100%;
@@ -164,11 +109,13 @@
     transform: scale(1.08);
 }
 
+
+
 /* Name */
 .candidate-card h3 {
     font-size: 1.15rem;
     font-weight: 700;
-    color: #1e293b;
+    color: #0a48abff;
     margin: 12px 0;
 }
 
@@ -223,9 +170,10 @@
     transition: .25s ease;
     position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     border: 2px solid transparent;
+    align-items: flex-start;
 }
 
 .candidate-card:hover {
@@ -308,6 +256,113 @@
     font-size: 15px;
 }
 
+/* container utama */
+.candidate-card {
+    display: flex;
+    justify-content: center;
+    gap: 48px;                /* ⬅️ jarak antar paslon (biar tidak mepet) */
+    padding: 20px 40px;
+    flex-direction: row;     /* foto dan nama sejajar */
+}
+
+/* tiap paslon */
+.candidate-item {
+    position: relative;
+    text-align: center;
+}
+
+/* BINGKAI PUTIH + BORDER BIRU (seperti gambar 2) */
+.photo-frame {
+    width: 450px;
+    height: 450px;
+    padding: 8px;
+    border-radius: 18px;
+    border: 4px solid #2f6bff;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.photo-frame img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+}
+
+/* foto */
+.candidate-photo {
+    width: 180px;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 14px;
+}
+
+/* nomor paslon */
+.candidate-number {
+    position: absolute;
+    width: 44px;       /* sebelumnya 52px */
+    height: 44px;
+    font-size: 18px;
+    top: -14px;
+    left: -14px;
+    background: linear-gradient(135deg, #3b82f6, #6366f1);
+    color: white;
+    font-weight: 800;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+}
+
+/* nama paslon */
+.candidate-name {
+    margin-top: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #002eadff;
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 768px) {
+
+    .candidate-card {
+        flex-direction: column;   /* ⬇️ turun ke bawah */
+        gap: 32px;
+    }
+
+    .candidate-item {
+        width: 100%;
+        max-width: 240px;
+        margin: 0 auto;
+    }
+
+    .photo-frame {
+        width: 100%;
+        height: 300px;
+    }
+
+    .candidate-name {
+        font-size: 15px;
+    }
+
+    .candidate-number {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+        top: -12px;
+        left: -12px;
+    }
+}
+
+
 
 </style>
 
@@ -368,215 +423,148 @@
             <div class="candidates-section">
                 <div class="section-header">
                     <h2 class="section-title">Calon Ketua & Wakil Ketua OSIS</h2>
-                    <p class="section-subtitle">Kenali visi, misi, dan gagasan masing-masing calon sebelum menentukan pilihan</p>
+                    <p class="section-subtitle">AYO TENTUKAN PEMIMPIN MASA DEPANMU!</p>
                 </div>
 
-                <!-- Candidate 1 - Foto di Kiri, Visi Misi di Kanan -->
-                <div class="candidate-container">
-                    <div class="candidate-card photo-left">
-                        <div class="candidate-photo-side">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
-                                 alt="Muhammad Rizki" class="candidate-photo">
-                            <div class="candidate-number">01</div>
-                        </div>
-                        
-                        <div class="candidate-content-side">
-                                <div class="candidate-header">
-                                    <div class="candidate-name">PASLON SATU</div>
-                                    <div class="candidate-position">
-                                        <i class="fas fa-user-tie"></i>
-                                        <span>Muhammad Rizki & Aisyah Zahra</span>
-                                    </div>
-                                    <div class="candidate-class">Kelas XII IPA 2 & XII IPS 1</div>
-                                </div>
-                            
-                            <div class="vision-mission-section">
-                                <div class="section-label">
-                                    <i class="fas fa-bullseye"></i>
-                                    <span>Visi</span>
-                                </div>
-                                <div class="vision-text">
-                                    Menjadikan OSIS sebagai wadah untuk membangun karakter siswa yang berintegritas, disiplin, dan berjiwa sosial tinggi.
-                                </div>
-                                
-                                <div class="section-label">
-                                    <i class="fas fa-tasks"></i>
-                                    <span>Misi</span>
-                                </div>
-                                <ul class="mission-list">
-                                    <li class="mission-item">
-                                        <div class="mission-number">1</div>
-                                        Mengadakan kegiatan sosial seperti bakti sekolah, donasi, dan layanan sosial masyarakat.
-                                    </li>
-                                    <li class="mission-item">
-                                        <div class="mission-number">2</div>
-                                        Melaksanakan program pembiasaan disiplin dan tata krama yang menyenangkan, bukan menghukum.
-                                    </li>
-                                    <li class="mission-item">
-                                        <div class="mission-number">3</div>
-                                        Meningkatkan kerja sama antar-organisasi sekolah agar kegiatan berjalan lebih tertata dan maksimal.
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Candidate 2 - Visi Misi di Kiri, Foto di Kanan -->
-                <div class="candidate-container">
-                    <div class="candidate-card photo-right">
-                        <div class="candidate-photo-side">
-                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
-                                 alt="Fajar Ramadhan" class="candidate-photo">
-                            <div class="candidate-number">02</div>
-                        </div>
-                        
-                        <div class="candidate-content-side">
-                            <div class="candidate-header">
-                                <div class="candidate-name">PASLON DUA</div>
-                                <div class="candidate-position">
-                                    <i class="fas fa-user-tie"></i>
-                                    <span>Fajar Ramadhan & Siti Khadijah</span>
-                                </div>
-                                <div class="candidate-class">Kelas XI IPA 3 & XII IPA 1</div>
-                            </div>
-                            
-                            <div class="vision-mission-section">
-                                <div class="section-label">
-                                    <i class="fas fa-bullseye"></i>
-                                    <span>Visi</span>
-                                </div>
-                                <div class="vision-text">
-                                    Membentuk OSIS yang responsif, inovatif, dan peduli terhadap kebutuhan siswa.
-                                </div>
-                                
-                                <div class="section-label">
-                                    <i class="fas fa-tasks"></i>
-                                    <span>Misi</span>
-                                </div>
-                                <ul class="mission-list">
-                                    <li class="mission-item">
-                                        <div class="mission-number">1</div>
-                                        Mendorong lahirnya program-program baru seperti workshop digital, kewirausahaan, dan pengembangan diri.
-                                    </li>
-                                    <li class="mission-item">
-                                        <div class="mission-number">2</div>
-                                        Menyediakan layanan aspirasi siswa secara online dan offline untuk mempercepat penyelesaian masalah.
-                                    </li>
-                                    <li class="mission-item">
-                                        <div class="mission-number">3</div>
-                                        Mengoptimalkan peran ekstrakurikuler agar lebih aktif dan rutin mengadakan kegiatan.
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            </div>    <!-- Candidate 1 - Foto di Kiri, Visi Misi di Kanan -->
+             
+<div class="candidate-container">
+    <div class="candidate-card">
+
+        <div class="candidate-item">
+            <div class="candidate-number">1</div>
+
+            <div class="photo-frame">
+                            <img src="{{ asset('images/paslon/paslon1Cowok.jpeg') }}" 
+                 alt="Foto Kandidat 1" class="candidate-photo">
+            </div>
+
+            <div class="candidate-name">
+                M. Raja Habil Hilabil
+            </div>
+        </div>
+
+        <div class="candidate-item">
+            <div class="candidate-number">1</div>
+
+            <div class="photo-frame">
+                           <img src="{{ asset('images/paslon/paslon1Cewek.jpeg') }}" 
+                 alt="Foto Kandidat 1   " class="candidate-photo">
+            </div>
+
+            <div class="candidate-name">
+                Errulin Syakila
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="candidate-container">
+    <div class="candidate-card">
+
+        <div class="candidate-item">
+            <div class="candidate-number">2</div>
+
+            <div class="photo-frame">
+                            <img src="{{ asset('images/paslon/paslon2Cowok.jpeg') }}" 
+                 alt="Foto Kandidat 2" class="candidate-photo">
+            </div>
+
+            <div class="candidate-name">
+               Muhibbul Bahri
+            </div>
+        </div>
+
+        <div class="candidate-item">
+            <div class="candidate-number">2</div>
+
+            <div class="photo-frame">
+                           <img src="{{ asset('images/paslon/paslon2Cewek.jpeg') }}" 
+                 alt="Foto Kandidat 2" class="candidate-photo">
+            </div>
+
+            <div class="candidate-name">
+                Humaira Mulna
+            </div>
+        </div>
+
+    </div>
+</div>
+
 
                 <!-- Candidate 3 - Foto di Kiri, Visi Misi di Kanan -->
                 <div class="candidate-container">
-                    <div class="candidate-card photo-left">
-                        <div class="candidate-photo-side">
-                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
-                                 alt="Rizky Maulana" class="candidate-photo">
-                            <div class="candidate-number">03</div>
-                        </div>
-                        
-                        <div class="candidate-content-side">
-                            <div class="candidate-header">
-                                <div class="candidate-name">PASLON TIGA</div>
-                                <div class="candidate-position">
-                                    <i class="fas fa-user-tie"></i>
-                                    <span>Rizky Maulana & Fatimah Azzahra</span>
-                                </div>
-                                <div class="candidate-class">Kelas XII IPA 3 & XII IPS 2</div>
-                            </div>
-                            
-                            <div class="vision-mission-section">
-                                <div class="section-label">
-                                    <i class="fas fa-bullseye"></i>
-                                    <span>Visi</span>
-                                </div>
-                                <div class="vision-text">
-                                    Mewujudkan SMA Darul Ulum sebagai sekolah modern berbasis teknologi dengan tetap menjaga nilai-nilai keislaman dan tradisi Aceh yang luhur.
-                                </div>
-                                
-                                <div class="section-label">
-                                    <i class="fas fa-tasks"></i>
-                                    <span>Misi</span>
-                                </div>
-                                <ul class="mission-list">
-                                    <li class="mission-item">
-                                        <div class="mission-number">1</div>
-                                        Mengintegrasikan teknologi dalam proses belajar mengajar dan administrasi sekolah.
-                                    </li>
-                                    <li class="mission-item">
-                                        <div class="mission-number">2</div>
-                                        Melestarikan budaya Aceh melalui kegiatan ekstrakurikuler dan festival budaya tahunan.
-                                    </li>
-                                    <li class="mission-item">
-                                        <div class="mission-number">3</div>
-                                        Meningkatkan literasi digital bagi siswa dan guru melalui workshop rutin.
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="candidate-card">
+
+        <div class="candidate-item">
+            <div class="candidate-number">3</div>
+
+            <div class="photo-frame">
+                            <img src="{{ asset('images/paslon/paslon3Cowok.jpeg') }}" 
+                 alt="Foto Kandidat 3" class="candidate-photo">
+            </div>
+
+            <div class="candidate-name">
+                M. Sirazul Rafiul Z
+            </div>
+        </div>
+
+        <div class="candidate-item">
+            <div class="candidate-number">3</div>
+
+            <div class="photo-frame">
+                           <img src="{{ asset('images/paslon/paslon3Cewek.jpeg') }}" 
+                 alt="Foto Kandidat 3" class="candidate-photo">
+            </div>
+
+            <div class="candidate-name">
+                Zakya Alfataya
+            </div>
+        </div>
+
+    </div>
+</div>
+
 
                 <!-- Candidate 4 - Visi Misi di Kiri, Foto di Kanan -->
                 <div class="candidate-container">
-                    <div class="candidate-card photo-right">
-                        <div class="candidate-photo-side">
-                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
-                                 alt="Abdullah Hadi" class="candidate-photo">
-                            <div class="candidate-number">04</div>
-                        </div>
-                        
-                        <div class="candidate-content-side">
-                            <div class="candidate-header">
-                                <div class="candidate-name">PASLON EMPAT</div>
-                                <div class="candidate-position">
-                                    <i class="fas fa-user-tie"></i>
-                                    <span>Abdullah Hadi & Nurul Hikmah</span>
-                                </div>
-                                <div class="candidate-class">Kelas XII IPS 3 & XII IPA 4</div>
-                            </div>
-                            
-                            <div class="vision-mission-section">
-                                <div class="section-label">
-                                    <i class="fas fa-bullseye"></i>
-                                    <span>Visi</span>
-                                </div>
-                                <div class="vision-text">
-                                    Menjadikan SMA Darul Ulum sebagai sekolah yang peduli terhadap sosial dan lingkungan, dengan menumbuhkan rasa solidaritas dan kebersamaan yang tinggi.
-                                </div>
-                                
-                                <div class="section-label">
-                                    <i class="fas fa-tasks"></i>
-                                    <span>Misi</span>
-                                </div>
-                                <ul class="mission-list">
-                                    <li class="mission-item">
-                                        <div class="mission-number">1</div>
-                                        Mengembangkan program sosial dan kegiatan amal secara rutin di dalam dan luar sekolah.
-                                    </li>
-                                    <li class="mission-item">
-                                        <div class="mission-number">2</div>
-                                        Meningkatkan kepedulian terhadap lingkungan sekitar melalui gerakan bersih dan hijau.
-                                    </li>
-                                    <li class="mission-item">
-                                        <div class="mission-number">3</div>
-                                        Memperkuat hubungan antar angkatan dan alumni untuk pengembangan sekolah.
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="candidate-card">
+
+        <div class="candidate-item">
+            <div class="candidate-number">4</div>
+
+            <div class="photo-frame">
+                            <img src="{{ asset('images/paslon/paslon4Cowok.jpeg') }}" 
+                 alt="Foto Kandidat 4" class="candidate-photo">
             </div>
-            
+
+            <div class="candidate-name">
+                Zul Isyrafi
+            </div>
         </div>
+
+        <div class="candidate-item">
+            <div class="candidate-number">4</div>
+
+            <div class="photo-frame">
+                           <img src="{{ asset('images/paslon/paslon4Cewek.jpeg') }}" 
+                 alt="Foto Kandidat 4" class="candidate-photo">
+            </div>
+
+            <div class="candidate-name">
+                Ninda Agustianda
+            </div>
+        </div>
+
+    </div>
+</div>
+
+            
+        
 
    <!-- OVERLAY -->
 <div class="modal-overlay" id="modalOverlay"></div>
@@ -594,16 +582,19 @@
 
         @foreach($candidates as $index => $candidate)
         <div class="candidate-card">
-            <div class="candidate-number-modal">{{ $index + 1 }}</div>
-
+             <div>
             <img src="{{ asset('images/'.$candidate->photo) }}" class="candidate-img">
 
-            <h3>{{ $candidate->name }}</h3>
+            <div>
+                            <h3>{{ $candidate->name }}</h3>
 
             <form action="/vote/{{ $candidate->id }}" method="POST">
                 @csrf
                 <button class="choose-btn" type="submit">Pilih Kandidat</button>
             </form>
+            </div>
+            
+            </div>
         </div>
         @endforeach
 

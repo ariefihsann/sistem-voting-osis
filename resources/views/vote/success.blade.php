@@ -116,9 +116,14 @@
 </div>
 
 
-<a href="{{ route('vote.index') }}" class="back-btn">
-    ← Kembali ke Beranda
-</a>
+<form action="{{ route('logout') }}" method="POST">
+    @csrf
+    <button type="submit" class="back-btn">
+        ← Keluar & Kembali ke Login
+    </button>
+</form>
+
+
 
 
 </div>
