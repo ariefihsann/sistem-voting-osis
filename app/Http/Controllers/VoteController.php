@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Candidate;
 use App\Models\Vote;
-use Illuminate\Support\Facades\DB;
 
 class VoteController extends Controller
 {
@@ -24,25 +23,25 @@ class VoteController extends Controller
         return view('vote.index', compact('candidates'));
     }
 
-public function store($id)
-{
-    $user = auth()->user();
+    public function store($id)
+    {
+        $user = auth()->user();
 
-    if ($user->has_voted) {
-        abort(403, 'Anda sudah melakukan voting.');
-    }
+        // CEK SUDAH VOTE ATAU BELUM (INI KUNCI)
+        if (Vote::where('user_id', $user->id)->exists()) {
+            return redirect()->route('vote.success',
+                Vote::where('user_id', $user->id)->first()->id
+            );
+        }
 
-    DB::transaction(function () use ($user, $id) {
-        Vote::create([
+        // Simpan vote
+        $vote = Vote::create([
             'user_id' => $user->id,
             'candidate_id' => $id,
         ]);
 
-        $user->update(['has_voted' => 1]);
-    });
-
-    return redirect()->route('vote.success');
-}   
+        return redirect()->route('vote.success', $vote->id);
+    }
 
     public function success($voteId)
     {

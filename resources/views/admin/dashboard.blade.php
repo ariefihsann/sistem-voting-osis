@@ -74,12 +74,6 @@
                 </div>
 
                 
-<form method="POST" action="{{ route('logout') }}">
-    @csrf
-    <button type="submit" class="logout-btn">
-        <i class="fas fa-sign-out-alt"></i> Logout
-    </button>
-</form>
             </div>
 
             <!-- Stats Cards -->

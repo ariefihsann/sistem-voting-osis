@@ -590,7 +590,11 @@
 
             <form action="/vote/{{ $candidate->id }}" method="POST">
                 @csrf
-                <button class="choose-btn" type="submit">Pilih Kandidat</button>
+                <button
+  class="choose-btn"
+  onclick="this.disabled=true; this.innerText='Memproses...'; this.form.submit();">
+  Pilih Kandidat
+</button>
             </form>
             </div>
             
